@@ -1,0 +1,504 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    activity_driver_home.xml
+    Dashboard principal du chauffeur
+    - Header sombre avec profil, note, statut toggle
+    - Stats du jour (courses / gains / taux)
+    - Zone offline avec CTA "Passer en ligne"
+    - RecyclerView des demandes disponibles (visible si online)
+    - BottomNavigationView (Accueil / Historique / Profil)
+-->
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0D1117">
+
+    <!-- ══════════════════════════════════════
+         CONTENU PRINCIPAL (scrollable)
+    ══════════════════════════════════════ -->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="90dp">
+
+            <!-- ── HEADER ── -->
+            <LinearLayout
+                android:id="@+id/headerLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="#161B22"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:paddingTop="20dp"
+                android:paddingBottom="18dp">
+
+                <!-- Ligne 1 : Avatar + Nom + Rating -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="16dp">
+
+                    <!-- Avatar cercle avec initiales -->
+                    <FrameLayout
+                        android:layout_width="52dp"
+                        android:layout_height="52dp"
+                        android:layout_marginEnd="14dp">
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/cardAvatar"
+                            android:layout_width="52dp"
+                            android:layout_height="52dp"
+                            app:cardCornerRadius="26dp"
+                            app:cardElevation="0dp"
+                            app:cardBackgroundColor="#00E676"
+                            android:clickable="true"
+                            android:focusable="true">
+                            <TextView
+                                android:id="@+id/tvAvatarInitials"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="KB"
+                                android:textSize="18sp"
+                                android:textStyle="bold"
+                                android:textColor="#0D1117"
+                                android:gravity="center"/>
+                        </androidx.cardview.widget.CardView>
+
+                        <!-- Point de statut online/offline -->
+                        <View
+                            android:id="@+id/viewStatusDot"
+                            android:layout_width="14dp"
+                            android:layout_height="14dp"
+                            android:layout_gravity="bottom|end"
+                            android:background="@drawable/bg_status_dot_online"
+                            android:layout_margin="2dp"/>
+                    </FrameLayout>
+
+                    <!-- Nom + infos véhicule -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tvDriverName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Karim Bennani"
+                            android:textSize="17sp"
+                            android:textStyle="bold"
+                            android:textColor="#F0F6FC"/>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:layout_marginTop="3dp">
+
+                            <TextView
+                                android:id="@+id/tvVehicleIcon"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=""
+                                android:textSize="12sp"/>
+
+                            <TextView
+                                android:id="@+id/tvVehicleInfo"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=""
+                                android:textSize="12sp"
+                                android:textColor="#8B949E"/>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <!-- Rating badge -->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:background="@drawable/bg_rating_badge"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:paddingTop="6dp"
+                        android:paddingBottom="6dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="★"
+                            android:textSize="12sp"
+                            android:textColor="#FFD700"/>
+
+                        <TextView
+                            android:id="@+id/tvRating"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=" 4.8"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:textColor="#F0F6FC"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- Ligne 2 : Toggle En ligne / Hors ligne -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/bg_toggle_row_dark"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Statut de disponibilité"
+                            android:textSize="11sp"
+                            android:textColor="#8B949E"/>
+
+                        <TextView
+                            android:id="@+id/tvStatusPill"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="En ligne"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:textColor="#00E676"
+                            android:layout_marginTop="1dp"/>
+                    </LinearLayout>
+
+                    <!-- Switch stylisé -->
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/switchOnline"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        app:thumbTint="#00E676"
+                        app:trackTint="@color/switch_track_selector"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- ── STATS RAPIDES ── -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:paddingTop="16dp"
+                android:paddingBottom="4dp">
+
+                <!-- Card Courses -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="6dp"
+                    app:cardCornerRadius="14dp"
+                    app:cardElevation="0dp"
+                    app:cardBackgroundColor="#161B22">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="14dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Courses"
+                            android:textSize="11sp"
+                            android:textColor="#8B949E"/>
+                        <TextView
+                            android:id="@+id/tvTodayTrips"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="3"
+                            android:textSize="24sp"
+                            android:textStyle="bold"
+                            android:textColor="#F0F6FC"
+                            android:layout_marginTop="4dp"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="aujourd'hui"
+                            android:textSize="10sp"
+                            android:textColor="#484F58"
+                            android:layout_marginTop="1dp"/>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- Card Gains -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="6dp"
+                    app:cardCornerRadius="14dp"
+                    app:cardElevation="0dp"
+                    app:cardBackgroundColor="#161B22">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="14dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Gains"
+                            android:textSize="11sp"
+                            android:textColor="#8B949E"/>
+                        <TextView
+                            android:id="@+id/tvTodayEarnings"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="185"
+                            android:textSize="24sp"
+                            android:textStyle="bold"
+                            android:textColor="#00E676"
+                            android:layout_marginTop="4dp"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="MAD"
+                            android:textSize="10sp"
+                            android:textColor="#484F58"
+                            android:layout_marginTop="1dp"/>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- Card Taux d'acceptation -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:cardCornerRadius="14dp"
+                    app:cardElevation="0dp"
+                    app:cardBackgroundColor="#161B22">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="14dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Taux acc."
+                            android:textSize="11sp"
+                            android:textColor="#8B949E"/>
+                        <TextView
+                            android:id="@+id/tvAcceptRate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="87%"
+                            android:textSize="24sp"
+                            android:textStyle="bold"
+                            android:textColor="#F0F6FC"
+                            android:layout_marginTop="4dp"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="ce mois"
+                            android:textSize="10sp"
+                            android:textColor="#484F58"
+                            android:layout_marginTop="1dp"/>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+
+            <!-- ── ÉTAT HORS LIGNE ── -->
+            <LinearLayout
+                android:id="@+id/layoutOffline"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:paddingTop="48dp"
+                android:paddingBottom="48dp"
+                android:paddingStart="32dp"
+                android:paddingEnd="32dp"
+                android:visibility="gone">
+
+                <!-- Icône offline -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="88dp"
+                    android:layout_height="88dp"
+                    app:cardCornerRadius="44dp"
+                    app:cardElevation="0dp"
+                    app:cardBackgroundColor="#1C2128"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="20dp">
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_compass"
+                        android:tint="#484F58"/>
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Vous êtes hors ligne"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="#F0F6FC"
+                    android:gravity="center"
+                    android:layout_marginBottom="10dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Activez votre statut en ligne\npour recevoir des demandes de course"
+                    android:textSize="14sp"
+                    android:textColor="#8B949E"
+                    android:gravity="center"
+                    android:lineSpacingExtra="4dp"
+                    android:layout_marginBottom="32dp"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnGoOnline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="52dp"
+                    android:text="Passer en ligne"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:textColor="#0D1117"
+                    android:paddingStart="36dp"
+                    android:paddingEnd="36dp"
+                    app:backgroundTint="#00E676"
+                    app:cornerRadius="16dp"
+                    app:rippleColor="#33000000"/>
+            </LinearLayout>
+
+            <!-- ── LISTE DES DEMANDES (visible si online) ── -->
+            <LinearLayout
+                android:id="@+id/layoutOnline"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <!-- Label section -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:paddingTop="20dp"
+                    android:paddingBottom="10dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="DEMANDES DISPONIBLES"
+                        android:textSize="11sp"
+                        android:textStyle="bold"
+                        android:textColor="#484F58"
+                        android:letterSpacing="0.1"/>
+
+                    <!-- Indicateur de chargement / dernière MàJ -->
+                    <TextView
+                        android:id="@+id/tvLastUpdate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="À jour"
+                        android:textSize="10sp"
+                        android:textColor="#00E676"/>
+                </LinearLayout>
+
+                <!-- RecyclerView des demandes -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvRideRequests"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:clipToPadding="false"
+                    android:nestedScrollingEnabled="false"/>
+
+                <!-- État vide (aucune demande) -->
+                <LinearLayout
+                    android:id="@+id/layoutEmpty"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:paddingTop="40dp"
+                    android:paddingBottom="40dp"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Aucune demande en ce moment"
+                        android:textSize="15sp"
+                        android:textColor="#8B949E"
+                        android:gravity="center"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Actualisation toutes les 8 secondes"
+                        android:textSize="12sp"
+                        android:textColor="#484F58"
+                        android:layout_marginTop="6dp"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- ══════════════════════════════════════
+         FRAGMENT CONTAINER (pour Historique/Profil)
+    ══════════════════════════════════════ -->
+    <FrameLayout
+        android:id="@+id/fragmentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:paddingBottom="56dp" />
+
+    <!-- ══════════════════════════════════════
+         BOTTOM NAVIGATION
+    ══════════════════════════════════════ -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="#161B22"
+        app:itemIconTint="@color/bottom_nav_selector"
+        app:itemTextColor="@color/bottom_nav_selector"
+        app:labelVisibilityMode="labeled"
+        app:menu="@menu/menu_driver_bottom_nav"
+        app:elevation="16dp"/>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

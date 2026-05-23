@@ -1,0 +1,24 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme -->
+    <style name="Theme.RideNow" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color -->
+        <item name="colorPrimary">#00E676</item>
+        <item name="colorPrimaryVariant">#00C853</item>
+        <item name="colorOnPrimary">#1A1A2E</item>
+
+        <!-- Secondary brand color -->
+        <item name="colorSecondary">#00E676</item>
+        <item name="colorSecondaryVariant">#00C853</item>
+        <item name="colorOnSecondary">#1A1A2E</item>
+
+        <!-- Status bar color -->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="23">false</item>
+
+        <!-- Navigation bar color -->
+        <item name="android:navigationBarColor">#0A0E17</item>
+
+        <!-- Background -->
+        <item name="android:windowBackground">#0A0E17</item>
+    </style>
+</resources>

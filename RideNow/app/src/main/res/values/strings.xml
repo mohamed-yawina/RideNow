@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">RideNow</string>
+
+    <!-- Messages véhicules -->
+    <string name="vehicle_taxi_selected">🚖 Taxi sélectionné</string>
+    <string name="vehicle_car_selected">🚗 Voiture sélectionnée</string>
+    <string name="vehicle_moto_selected">🏍️ Moto sélectionnée</string>
+
+    <!-- Messages généraux -->
+    <string name="welcome_message">Bonjour, %s</string>
+    <string name="destination_selected">Destination sélectionnée: %s</string>
+    <string name="destination_marker_title">Destination</string>
+    <string name="you_are_here">Vous êtes ici</string>
+    <string name="driver_default_name">Chauffeur</string>
+    <string name="my_position">Ma position</string>
+
+    <!-- Messages erreur -->
+    <string name="error_select_destination">❌ Veuillez sélectionner une destination dans la liste déroulante</string>
+    <string name="error_location_unavailable">Position non disponible</string>
+    <string name="location_permission_denied">Permission de localisation refusée</string>
+    <string name="ride_request_error">❌ Erreur: %s</string>
+
+    <!-- Messages succès -->
+    <string name="ride_request_success">%s✅ Course demandée avec succès !</string>
+
+    <!-- Boutons -->
+    <string name="request_ride">DEMANDER UN TRAJET</string>
+    <string name="searching">Recherche...</string>
+    <string name="searching_vehicle">%sRecherche d\'un %s pour %s...</string>
+</resources>

@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#0A0E17">
+
+    <!-- Header -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#1E2433"
+        android:paddingTop="40dp"
+        android:paddingBottom="16dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="🚗 Course en cours"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#F0F6FC"/>
+
+        <!-- Carte client -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:cardCornerRadius="16dp"
+            app:cardBackgroundColor="#2A3441">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:gravity="center_vertical">
+
+                <!-- Avatar -->
+                <TextView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/bg_avatar"
+                    android:text="👤"
+                    android:textSize="20sp"
+                    android:gravity="center"/>
+
+                <!-- Infos client -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_marginStart="12dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Client"
+                        android:textSize="11sp"
+                        android:textColor="#8E9AAF"/>
+
+                    <TextView
+                        android:id="@+id/tvClientName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Chargement..."
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="#F0F6FC"/>
+                </LinearLayout>
+
+                <!-- Badge statut -->
+                <TextView
+                    android:id="@+id/tvStatusBadge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="En attente"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:paddingTop="6dp"
+                    android:paddingBottom="6dp"
+                    android:background="@drawable/bg_status_warning"
+                    android:textColor="#FF9800"/>
+
+            </LinearLayout>
+
+            <!-- Séparateur -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#2A3441"/>
+
+            <!-- Ligne téléphone -->
+            <LinearLayout
+                android:id="@+id/layoutPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="12dp"
+                android:gravity="center"
+                android:clickable="true"
+                android:focusable="true"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@android:drawable/ic_menu_call"
+                    android:tint="#00E676"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Contacter le client : "
+                    android:textSize="12sp"
+                    android:textColor="#8E9AAF"
+                    android:layout_marginStart="8dp"/>
+
+                <TextView
+                    android:id="@+id/tvClientPhone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textColor="#00E676"
+                    android:layout_marginStart="4dp"/>
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+    <!-- Carte itinéraire -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:cardCornerRadius="20dp"
+        app:cardBackgroundColor="#1E2433"
+        app:elevation="0dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="📍 Itinéraire"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:textColor="#8E9AAF"
+                android:layout_marginBottom="16dp"/>
+
+            <!-- Départ -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="16dp">
+
+                <TextView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:text="🟢"
+                    android:textSize="14sp"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_marginStart="12dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Départ"
+                        android:textSize="11sp"
+                        android:textColor="#8E9AAF"/>
+
+                    <TextView
+                        android:id="@+id/tvPickup"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Chargement..."
+                        android:textSize="14sp"
+                        android:textColor="#F0F6FC"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Flèche -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="⬇️"
+                android:textSize="14sp"
+                android:layout_marginStart="6dp"
+                android:layout_marginBottom="8dp"/>
+
+            <!-- Destination -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="16dp">
+
+                <TextView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:text="🔴"
+                    android:textSize="14sp"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_marginStart="12dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Destination"
+                        android:textSize="11sp"
+                        android:textColor="#8E9AAF"/>
+
+                    <TextView
+                        android:id="@+id/tvDestination"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Chargement..."
+                        android:textSize="14sp"
+                        android:textColor="#F0F6FC"
+                        android:textStyle="bold"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Prix -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="#2A3441"
+                android:padding="12dp"
+                app:cornerRadius="12dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="💰 Prix"
+                    android:textSize="12sp"
+                    android:textColor="#8E9AAF"/>
+
+                <TextView
+                    android:id="@+id/tvPrice"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="0 MAD"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="#00E676"
+                    android:gravity="end"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Zone Statut -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        app:cardCornerRadius="20dp"
+        app:cardBackgroundColor="#1E2433"
+        app:elevation="0dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="16dp"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="📌"
+                android:textSize="20sp"/>
+
+            <TextView
+                android:id="@+id/tvStatus"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="En attente"
+                android:textSize="13sp"
+                android:textColor="#8E9AAF"
+                android:layout_marginStart="12dp"/>
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:visibility="gone"
+                android:indeterminateTint="#00E676"/>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Boutons d'action -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:gravity="bottom">
+
+        <!-- Navigation -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnNavigate"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="🗺️ NAVIGUER"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            app:backgroundTint="#2196F3"
+            app:cornerRadius="16dp"
+            android:layout_marginBottom="12dp"/>
+
+        <!-- Client pris en charge -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnClientPickedUp"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="✅ CLIENT PRIS EN CHARGE"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            app:backgroundTint="#00E676"
+            app:cornerRadius="16dp"
+            android:layout_marginBottom="12dp"/>
+
+        <!-- Démarrer course -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnStartRide"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="🚗 DÉMARRER LA COURSE"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            app:backgroundTint="#FF9800"
+            app:cornerRadius="16dp"
+            android:layout_marginBottom="12dp"
+            android:visibility="gone"/>
+
+        <!-- Terminer course -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnCompleteRide"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="🏁 TERMINER LA COURSE"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            app:backgroundTint="#00E676"
+            app:cornerRadius="16dp"
+            android:visibility="gone"/>
+
+        <!-- Annuler -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnCancelRide"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="✖ ANNULER"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="#FF5252"
+            app:backgroundTint="#1E2433"
+            app:strokeColor="#FF5252"
+            app:strokeWidth="1.5dp"
+            app:cornerRadius="16dp"/>
+
+    </LinearLayout>
+
+</LinearLayout>

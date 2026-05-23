@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<!-- Couleurs principales RideNow -->
+<color name="green_primary">#00E676</color>
+<color name="green_dark">#00A854</color>
+<color name="green_light">#E8FFF5</color>
+
+<color name="dark_bg">#0D1B2A</color>
+<color name="dark_card">#162032</color>
+<color name="dark_input">#1E2D3D</color>
+
+<color name="text_primary">#1A1A2E</color>
+<color name="text_secondary">#757575</color>
+<color name="text_hint">#BBBBBB</color>
+<color name="text_white">#FFFFFF</color>
+<color name="text_white_50">#80FFFFFF</color>
+
+<color name="red_accent">#FF5252</color>
+<color name="blue_accent">#2196F3</color>
+    <color name="blue_500">#2196F3</color>
+    <color name="green_500">#4CAF50</color>
+    <color name="orange_500">#FF9800</color>
+<color name="divider">#F0F0F0</color>
+<color name="card_bg">#FFFFFF</color>
+<color name="surface_bg">#F7F8FA</color>
+<color name="surface_light">#F5F5F5</color>
+<color name="border_light">#E0E0E0</color>
+    <color name="switch_track_selector">#334A4A</color>
+
+</resources>
