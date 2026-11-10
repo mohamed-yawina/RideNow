@@ -1,2 +1,39 @@
+# Environment variables and local secrets
 .env
+.env.*
+!.env.example
 Backend/.env
+
+# Python environments, caches and tooling
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+dist/
+build/
+*.egg-info/
+
+# Android / Gradle build output
+.gradle/
+**/build/
+local.properties
+*.apk
+*.aab
+*.hprof
+
+# IDE / OS
+.idea/
+*.iml
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Logs and temporary files
+*.log
+*.tmp
