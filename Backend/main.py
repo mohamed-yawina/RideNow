@@ -6,16 +6,26 @@ from models import UserRegister, UserLogin, UserResponse, PasswordChange
 from math import radians, sin, cos, sqrt, atan2
 from typing import Optional
 from datetime import datetime, timedelta
+import os
 
 app = FastAPI(title="RideNow API")
 
-# CORS pour Android
+# Browser CORS is configured explicitly. Native Android clients are not subject
+# to browser CORS enforcement. Use comma-separated origins in Backend/.env.
+allowed_origins = [
+    origin.strip()
+    for origin in os.getenv("CORS_ALLOWED_ORIGINS", "").split(",")
+    if origin.strip()
+]
+if any(origin == "*" for origin in allowed_origins):
+    raise RuntimeError("CORS_ALLOWED_ORIGINS must list explicit origins, not '*'.")
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=allowed_origins,
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allow_headers=["Authorization", "Content-Type"],
 )
 
 # ========== FONCTION DE CALCUL DE DISTANCE ==========
@@ -419,7 +429,12 @@ def get_matching_status(ride_id: str, current_user = Depends(get_current_user)):
     if not ride.data:
         raise HTTPException(status_code=404, detail="Course non trouvée")
     
-    return {"ride": ride.data[0]}
+    ride_data = ride.data[0]
+    user_id = current_user.get("sub")
+    if user_id not in (ride_data.get("client_id"), ride_data.get("driver_id")):
+        raise HTTPException(status_code=403, detail="Accès à cette course interdit")
+
+    return {"ride": ride_data}
 
 @app.get("/driver/active-rides")
 def get_active_rides(current_user = Depends(get_current_user)):
@@ -958,7 +973,13 @@ def get_notifications(current_user = Depends(get_current_user)):
 
 @app.put("/notifications/read/{notification_id}")
 def mark_notification_read(notification_id: str, current_user = Depends(get_current_user)):
-    supabase.table("notifications").update({"is_read": True}).eq("id", notification_id).execute()
+    result = supabase.table("notifications")\\
+        .update({"is_read": True})\\
+        .eq("id", notification_id)\\
+        .eq("user_id", current_user.get("sub"))\\
+        .execute()
+    if not result.data:
+        raise HTTPException(status_code=404, detail="Notification non trouvée")
     
     return {"message": "Notification marquée comme lue"}
 
