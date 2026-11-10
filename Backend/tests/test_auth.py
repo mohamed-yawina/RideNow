@@ -22,10 +22,7 @@ class AuthenticationSecurityTests(unittest.TestCase):
     def setUpClass(cls):
         # The application intentionally requires a configured secret.
         with patch.dict(os.environ, {"SECRET_KEY": TEST_SECRET}):
-            try:
-                cls.auth = importlib.import_module("auth")
-            except ImportError as exc:
-                raise unittest.SkipTest(f"Backend authentication dependencies unavailable: {exc}")
+            cls.auth = importlib.import_module("auth")
 
     def test_valid_token_round_trip(self):
         token = self.auth.create_access_token({
